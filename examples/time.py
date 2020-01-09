@@ -26,4 +26,3 @@ while True:
 		display.show(Image.SAD)
     else:
 		display.show(Image.HAPPY)
-    sleep(1000)
