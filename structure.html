@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pet Project</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto Condensed:100,300,400,500,700,900" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <header>
+    <a href="https://scienceoxford.com" target="_blank"><img src=".\so_logo.png" alt="Science Oxford Logo" width="400px" height="auto"></a>
+    <h1>Cyber Pet Code</h1>
+  </header>
+
+  <div id="intro">
+    <p>Copy and paste all of the code below into a New tab in Mu.</p>
+    <p>To skip to the explanation, and ideas for next steps, <a href="#explanation">click here</a>.</p>
+  </div>
+
+  <div id="code" class="left">
+    <br>
+    <pre>from microbit import *
+import random
+
+def needed():
+    needs[random.choice(list(needs.keys()))] = True
+
+def pet_happy():
+    return all(value is False for value in needs.values())
+
+
+needs = {
+         'hungry': False,
+         'sleepy': False,
+         }
+
+
+while True:
+    sleep(100)
+    if button_a.was_pressed():
+        needed()
+    if pet_happy():
+        display.show(Image.HEART)
+
+
+    if needs['hungry'] is True:
+        display.show('H')
+    if needs['sleepy'] is True:
+        display.show('S')
+
+
+    if button_b.was_pressed():
+        needs['hungry'] = False
+    if accelerometer.was_gesture('face down'):
+        needs['sleepy'] = False</pre>
+  </div>
+
+  <div id="explanation" class="left">
+    <br>
+    <h3>How does this code work?</h3>
+    <p>...</p>
+  </div>
+
+  <div id="extensions" class="left">
+    <br>
+    <h3>What next?</h3>
+    <p>Think about <strong>what features</strong> you want your pet to have, and how they would <strong>fit into the structure</strong> of the code.</p>
+    <p>...</p>
+  </div>
+
+  <footer class="links">
+    <a href="https://github.com/ScienceOxford/cyber-pet" target="_blank">View on GitHub</a>
+  </footer>
+
+</body>
+
+</html>
