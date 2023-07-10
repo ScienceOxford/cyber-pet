@@ -2,50 +2,129 @@
 <html>
 
 <head>
-  <title>Pet Project</title>
+  <title>Cyber-Pet Project</title>
   <link rel="stylesheet" type="text/css" href="style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto Condensed:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
   <header>
-    <a href="https://scienceoxford.com" target="_blank"><img src=".\so_logo.png" alt="Science Oxford Logo" width="400px" height="auto"></a>
-    <h1>CCC - Pet Project</h1>
+    <header>
+      <a href="https://scienceoxford.com" target="_blank"><img src=".\images\so_logo.png" alt="Science Oxford Logo" width="400px" height="auto"></a>
+    <h1>CCC - Cyber-Pet Project</h1>
   </header>
 
   <div id="intro">
-    <p>Resources for the 'Pet Project' Creative Computing Club.</p>
-    <p>This page recaps what <a href="https://bit.ly/Jan20CCC" target="_blank">we discussed as a group</a>, including creating a heartbeat.</p>
-    <p>To skip to the cyber pet starter code, and ideas for your next steps, <a href="structure.html">click here</a>.</p>
+    <p>Resources for the 'Cyber-Pet Project' Creative Computing Club.</p>
+    <p>This page recaps what <a href="https://bit.ly/Jul23CCC" target="_blank">we discussed as a group</a>.</p>
+    <p>To skip to the advanced extensions, <a href="#extensions">click here</a>.</p>
+    <br>
   </div>
 
   <div id="starter" class="left">
-    <h3>Creating your first program</h3>
-    <p>Open <a href="https://codewith.mu/" target="_blank">the Mu editor</a> on your computer. <strong>If there is code on the screen</strong>, start a New program from the menu.</p>
-    <img src=".\images\mu_toolbar_new.png" alt="Mu menu, highlighting 'New'" width="1000px" height="auto">
-    <p>Type these two lines of code into your blank window:</p>
+    <h3>Testing our cyber pet</h3>
+    <p>Run <a href=".\examples\PetProject - start.hex">our cyber-pet code</a> on your micro:bit - what does it do? Can you work out how to make your pet happy?</p>
+    <p>This code has lots of sections:</p>
+    <ul>
+      <li><strong>Lines 1-2:</strong> import the libraries needed for the code to work</li>
+      <li><strong>Lines 4-6:</strong> this is a <em>dictionary</em> of things your pet might want, at the moment it can only ask for food</li>
+      <li><strong>Line 8:</strong> while True: begins our <em>forever loop</em>, to keep the cyber-pet code running</li>
+      <li><strong>Line 9:</strong> your pet asks for something, every 5000 ms (5 seconds), from the dictionary called needs</li>
+      <li><strong>Lines 11-12:</strong> if your pet is happy (doesn't need anything), then show a HEART</li>
+      <li><strong>Lines 14-15:</strong> if your pet needs food, show an F</li>
+      <li><strong>Lines 16-17:</strong> if you press Button A, feed your pet (set 'needs food' to False)</li>
+    </ul>
+    <br>
+  </div>
+
+  <div id="modify" class="left">
+    <h3>Modifying the code</h3>
+    <ol>
+      <li>Change the HEART image on line 12 to a different image - what should your pet do if it is happy?</li>
+      <li>Change how your pet tells you it is hungry.</li>
+    </ol>
+    <p><strong>Challenge: </strong> can you give your happy pet a heartbeat?</p>
+    <br>
+  </div>
+
+  <div id="needs" class="left">
+    <h3>What else does your pet need?</h3>
+    <p>To add extra things that your pet needs, you will need to:</p>
+    <ol>
+      <li>Add to the needs dictionary</li>
+      <li>Set how the pet gets your attention</li>
+      <li>Set how you respond to this new need</li>
+    </ol>
+    <p>In this example, we will add the need <strong>play</strong>; the pet will show a <strong>P</strong> when it wants it; we will <strong>shake</strong> the micro:bit to respond.</p>
+    <h5>1: add to the needs dictionary</h5>
+    <pre>needs =  {
+         'food' = False,
+         'play' = False,
+         }</pre>
+    <br>
+    <h5>2: set how your pet gets your attention</h5>
+    <pre>    if needs['play']:
+        display.show('P')</pre>
+    <br>    
+    <h5>3: set how your respond to the need</h5>
+    <pre>    if accelerometer.was_gesture('shake'):
+        needs['play'] = False</pre>
+    <br>
+    <h5>Full code example:</h5>
     <pre>from microbit import *
-display.show(Image.HAPPY)</pre>
+import pet
+
+needs = {
+         'food': False,
+         'play': False,
+         }
+
+while True:
+    pet.asks(5000, needs)
+
+    if pet.happy(needs):
+        display.show(Image.HEART)
+
+    if needs['food']:
+        display.show('F')
+    if button_a.was_pressed():
+        needs['food'] = False
+
+    if needs['play']:
+        display.show('P')
+    if accelerometer.was_gesture('shake'):
+        needs['play'] = False</pre>
     <br>
-    <p>Plug your micro:bit into the computer, then click Flash:</p>
-    <img src=".\images\mu_toolbar_flash.png" alt="Mu menu, highlighting 'Flash'" width="1000px" height="auto">
-    <p>Some code should be running on your micro:bit!</p>
-    <p><strong>If you get a message scrolling across the micro:bit's screen</strong>, this is an error message!</p>
-    <p><strong>Debug</strong> your code, then click Flash again to test your changes.</p>
-    <p>Once your code is working - change it!</p>
-    <p>Instead of <code>HAPPY</code>, can you think of another <code>Image</code> the micro:bit could <code>show</code> on its <code>display</code>?
+    <p><strong>Challenge: </strong> <a href="images.html">create your own images</a> instead of using the built-in ones.</p>
     <br>
   </div>
 
-  <div id="heartbeat" class="left">
-    <h3>Creating a heartbeat</h3>
-    <p>TO BE ADDED - <a href="https://bit.ly/Jan20CCC" target="_blank">see presentation for now</a>.</p>
-  </div>
-
-  <div id="next" class="left">
-    <h3>Creating your cyber pet</h3>
-    <p><a href="structure.html" target="_blank">Click here</a> for the cyber pet starter code and instructions!</p>
+  <div id="extensions" class="left">
+    <h3>What else does your pet need?</h3>
+    <p>What else could your pet ask for? Perhaps they want a nap, or to be stroked. Use the structure in the previous step to add as many needs as you want!</p>
+    <h5>Inputs you can respond with:</h5>
+    <ul>
+      <li><code>button_b.was_pressed()</code></li>
+      <li><code>accelerometer.was_gesture('up')</code></li>
+      <li><code>accelerometer.was_gesture('down')</code></li>
+      <li><code>accelerometer.was_gesture('left')</code></li>
+      <li><code>accelerometer.was_gesture('right')</code></li>
+      <li><code>accelerometer.was_gesture('face up')</code></li>
+      <li><code>accelerometer.was_gesture('face down')</code></li>
+      <li><code>pin_logo.is_touched()</code></li>
+      <li><code>microphone.was_event(SoundEvent.LOUD)</code></li>
+    </ul>
+    <br>
+    <h5>Outputs your pet could use:</h5>
+    <p><em>Some outputs take time to run, so your pet might not respond until it has finished!</em></p>
+    <ul>
+      <li><code>audio.play(Sound.GIGGLE)</code></li>
+      <li><code>display.scroll('hello')</code></li>
+      <li><code>speech.say('hello')</code> - (add<code> import speech </code>to the top of your code</li>
+    </ul>
+    <br>
+    <p><strong>Challenge: </strong>use variables to add timers to your code - e.g. if your pet needs food for more than 10 seconds, start making a sound to get your attention! <a href=".\examples\PetProject - with timer.hex">See an example here</a>.</p>
   </div>
 
   <footer class="links">
